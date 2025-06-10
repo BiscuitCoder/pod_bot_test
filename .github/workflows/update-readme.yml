@@ -1,0 +1,51 @@
+name: Update README with Pods
+
+on:
+  push:
+    paths:
+      - 'pods/**'
+  pull_request:
+    paths:
+      - 'pods/**'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Update README
+        run: |
+          echo "# Pods 目录" > README.md
+          echo "" >> README.md
+          echo "## 文件列表" >> README.md
+          echo "" >> README.md
+          
+          for file in pods/*.md; do
+            if [ -f "$file" ]; then
+              echo "### $(basename "$file")" >> README.md
+              echo "" >> README.md
+              # 提取文件中的 title
+              title=$(grep -m 1 "^# " "$file" | sed 's/^# //')
+              if [ ! -z "$title" ]; then
+                echo "**标题**: $title" >> README.md
+                echo "" >> README.md
+              fi
+              echo "---" >> README.md
+              echo "" >> README.md
+            fi
+          done
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update README with latest pods" && git push) 
