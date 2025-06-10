@@ -16,32 +16,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          python-version: '3.x'
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Update README
-        run: |
-          echo "# Pods 目录" > README.md
-          echo "" >> README.md
-          echo "## 文件列表" >> README.md
-          echo "" >> README.md
-          
-          for file in pods/*.md; do
-            if [ -f "$file" ]; then
-              echo "### $(basename "$file")" >> README.md
-              echo "" >> README.md
-              # 提取文件中的 title
-              title=$(grep -m 1 "^# " "$file" | sed 's/^# //')
-              if [ ! -z "$title" ]; then
-                echo "**标题**: $title" >> README.md
-                echo "" >> README.md
-              fi
-              echo "---" >> README.md
-              echo "" >> README.md
-            fi
-          done
+        run: node scripts/update-readme.js
 
       - name: Commit and push if changed
         run: |
