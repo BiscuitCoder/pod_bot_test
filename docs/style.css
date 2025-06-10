@@ -1,0 +1,340 @@
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #3b82f6;
+    --success-color: #10b981;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--card-background);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+.stat-title {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-value {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.chart-container {
+    background: var(--card-background);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.timeline-container {
+    background: var(--card-background);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+}
+
+.timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    transform: translateX(-50%);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.timeline-content {
+    position: relative;
+    width: calc(50% - 2rem);
+    padding: 1.5rem;
+    background: var(--card-background);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+}
+
+.timeline-date {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+}
+
+.timeline-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.125rem;
+}
+
+.timeline-project {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-amount {
+    color: var(--success-color);
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.pod-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pod-card {
+    background: var(--card-background);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease;
+}
+
+.pod-card:hover {
+    transform: translateY(-2px);
+}
+
+.pod-header {
+    padding-bottom: 0.5rem;
+}
+
+.pod-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+}
+
+.pod-meta {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.pod-meta>div {
+    margin-bottom: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pod-meta>div:last-child {
+    margin-bottom: 0;
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.funding-info {
+    background: var(--background-color);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.funding-info>div {
+    margin-bottom: 0.5rem;
+}
+
+.milestone-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+}
+
+.milestone-table th,
+.milestone-table td {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+}
+
+.milestone-table th {
+    background: var(--background-color);
+    font-weight: 600;
+    text-align: left;
+}
+
+.milestone-table tr:first-child th:first-child {
+    border-top-left-radius: 0.5rem;
+}
+
+.milestone-table tr:first-child th:last-child {
+    border-top-right-radius: 0.5rem;
+}
+
+.milestone-table tr:last-child td:first-child {
+    border-bottom-left-radius: 0.5rem;
+}
+
+.milestone-table tr:last-child td:last-child {
+    border-bottom-right-radius: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    .timeline-content {
+        width: calc(100% - 2rem);
+        margin-left: 2rem !important;
+    }
+    .timeline::before {
+        left: 0;
+    }
+    .timeline-date {
+        left: 0;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.pod-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.pod-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-weight: 500;
+}
+
+.status-pending {
+    background-color: #e2e8f0;
+    color: #64748b;
+}
+
+.status-ongoing {
+    background-color: #dbeafe;
+    color: #2563eb;
+}
+
+.status-completed {
+    color: #16a34a;
+}
+
+.status-delayed {
+    color: #dc2626;
+}
+
+.status-stalled {
+    color: #d97706;
+}
+
+.status-rejected {
+    color: #dc2626;
+}
+
+
+/* 状态卡片边框颜色 */
+
+.pod-card.status-pending {
+    border-left: 4px solid #64748b;
+}
+
+.pod-card.status-ongoing {
+    border-left: 4px solid #2563eb;
+}
+
+.pod-card.status-completed {
+    border-left: 4px solid #16a34a;
+}
+
+.pod-card.status-delayed {
+    border-left: 4px solid #dc2626;
+}
+
+.pod-card.status-stalled {
+    border-left: 4px solid #d97706;
+}
+
+.pod-card.status-rejected {
+    border-left: 4px solid #dc2626;
+}

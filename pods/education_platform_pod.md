@@ -46,3 +46,13 @@
 - 平台将采用免费+付费模式
 - 计划与多个Web3项目合作
 - 将建立导师制度 
+
+## 7. Dwv WG
+> 此部分由 Dev WG 管理员填写，用户请勿修改
+
+- 项目状态：进行中
+- 当前 Milestone 进度：完成第一个里程碑，正在进行第二个里程碑的开发
+- 国库多签地址：0x1234567890abcdef1234567890abcdef12345678
+- Notion文档：https://lxdao.notion.site/education-platform
+- FairSharing：已完成 30% 的 FairSharing 分配
+- 备注：项目进展顺利，团队配合良好 

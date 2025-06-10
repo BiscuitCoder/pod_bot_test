@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pod 详情 - LXDAO</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pod-detail-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        .back-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .detail-card {
+            background: var(--card-background);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+        }
+        
+        .detail-section {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .detail-section h2 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .detail-section h2::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 1.25rem;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .detail-item {
+            background: var(--background-color);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.2s ease;
+        }
+        
+        .detail-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .detail-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .milestone-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .milestone-item {
+            background: var(--background-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .milestone-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .milestone-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .milestone-date {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .milestone-goal {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+        
+        .milestone-amount {
+            color: var(--success-color);
+            font-weight: 600;
+            font-size: 1.125rem;
+        }
+        
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: var(--background-color);
+        }
+        
+        .status-badge.status-ongoing {
+            background: #e6f4ea;
+            color: #1e7e34;
+        }
+        
+        .status-badge.status-delayed {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        
+        .status-badge.status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+        
+        .status-badge.status-completed {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+        
+        .status-badge.status-stalled {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+        
+        .status-badge.status-rejected {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        
+        .notion-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+        }
+        
+        .notion-link:hover {
+            color: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+        
+        .treasury-address {
+            font-family: monospace;
+            background: var(--background-color);
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            word-break: break-all;
+        }
+        
+        @media (max-width: 768px) {
+            .pod-detail-container {
+                padding: 1rem;
+            }
+            .detail-card {
+                padding: 1rem;
+            }
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="pod-detail-container">
+        <a href="index.html" class="back-button">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg> 返回列表
+        </a>
+
+        <div class="detail-card">
+            <div class="detail-section">
+                <h2>基本信息</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">项目名称</div>
+                        <div class="detail-value" id="projectName">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">负责人</div>
+                        <div class="detail-value" id="owner">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">关联主线</div>
+                        <div class="detail-value" id="relatedLine">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h2>时间线</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">开始日期</div>
+                        <div class="detail-value" id="startDate">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">结束日期</div>
+                        <div class="detail-value" id="endDate">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h2>资金信息</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">申请金额</div>
+                        <div class="detail-value" id="fundingAmount">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">联系方式</div>
+                        <div class="detail-value" id="contact">-</div>
+                    </div>
+                </div>
+                <div class="detail-item" style="margin-top: 1.5rem;">
+                    <div class="detail-label">资金用途</div>
+                    <div class="detail-value" id="fundingUsage">-</div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h2>里程碑</h2>
+                <div class="milestone-list" id="milestoneList">
+                    <!-- 里程碑将通过 JavaScript 动态加载 -->
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <h2>Dev WG 信息</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">项目状态</div>
+                        <div class="detail-value">
+                            <div class="status-badge" id="devWgStatus">-</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">当前 Milestone 进度</div>
+                        <div class="detail-value" id="currentMilestone">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">国库多签地址</div>
+                        <div class="detail-value">
+                            <div class="treasury-address" id="treasuryAddress">-</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">Notion文档</div>
+                        <div class="detail-value">
+                            <a href="#" id="notionDoc" class="notion-link" target="_blank">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M10 4.16667V15.8333M4.16667 10H15.8333" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg> 查看文档
+                            </a>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">FairSharing</div>
+                        <div class="detail-value" id="fairSharing">-</div>
+                    </div>
+                </div>
+                <div class="detail-item" style="margin-top: 1.5rem;">
+                    <div class="detail-label">备注</div>
+                    <div class="detail-value" id="devWgNotes">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 获取 URL 参数中的 pod 名称
+        function getPodNameFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('name');
+        }
+
+        // 获取状态对应的样式类
+        function getStatusClass(status) {
+            const statusMap = {
+                '进行中': 'status-ongoing',
+                '已延期': 'status-delayed',
+                '初审中': 'status-pending',
+                '已完成': 'status-completed',
+                '已停滞': 'status-stalled',
+                '已驳回': 'status-rejected'
+            };
+            return statusMap[status] || '';
+        }
+
+        // 加载 Pod 数据
+        async function loadPodData() {
+            try {
+                const podName = getPodNameFromUrl();
+                if (!podName) {
+                    alert('未找到 Pod 名称');
+                    return;
+                }
+
+                const response = await fetch('./data.json');
+                const data = await response.json();
+
+                // 查找匹配的 Pod
+                const pod = data.pods.find(p => p.basic_info.project_name === podName);
+                if (!pod) {
+                    alert('未找到指定的 Pod');
+                    return;
+                }
+
+                // 更新页面标题
+                document.title = `${pod.basic_info.project_name} - LXDAO Pod 详情`;
+
+                // 更新基本信息
+                document.getElementById('projectName').textContent = pod.basic_info.project_name;
+                document.getElementById('owner').textContent = pod.basic_info.owner;
+                document.getElementById('relatedLine').textContent = pod.basic_info.related_line;
+
+                // 更新时间线
+                document.getElementById('startDate').textContent = pod.timeline.start_date;
+                document.getElementById('endDate').textContent = pod.timeline.end_date;
+
+                // 更新资金信息
+                document.getElementById('fundingAmount').textContent = `${pod.funding.amount} USDT`;
+                document.getElementById('contact').textContent = pod.funding.contact;
+                document.getElementById('fundingUsage').textContent = pod.funding.usage;
+
+                // 更新里程碑列表
+                const milestoneList = document.getElementById('milestoneList');
+                milestoneList.innerHTML = pod.milestones.map(milestone => `
+                    <div class="milestone-item">
+                        <div class="milestone-date">${milestone.date}</div>
+                        <div class="milestone-goal">${milestone.goal}</div>
+                        <div class="milestone-amount">${milestone.amount} USDT</div>
+                    </div>
+                `).join('');
+
+                // 更新 Dev WG 信息
+                const statusElement = document.getElementById('devWgStatus');
+                statusElement.textContent = pod.dev_wg.status;
+                statusElement.className = `status-badge ${getStatusClass(pod.dev_wg.status)}`;
+
+                document.getElementById('currentMilestone').textContent = pod.dev_wg.current_milestone || '-';
+                document.getElementById('treasuryAddress').textContent = pod.dev_wg.treasury_address || '-';
+
+                const notionDoc = document.getElementById('notionDoc');
+                if (pod.dev_wg.notion_doc) {
+                    notionDoc.href = pod.dev_wg.notion_doc;
+                    notionDoc.style.display = 'inline-flex';
+                } else {
+                    notionDoc.style.display = 'none';
+                }
+
+                document.getElementById('fairSharing').textContent = pod.dev_wg.fair_sharing || '-';
+                document.getElementById('devWgNotes').textContent = pod.dev_wg.notes || '-';
+
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                alert('加载数据失败，请稍后重试');
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', loadPodData);
+    </script>
+</body>
+
+</html>

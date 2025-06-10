@@ -1,15 +1,15 @@
 {
   "git": {
     "branch": "master",
-    "commit": "e55323d370485efe5a69368bf9313efe93171f02",
-    "date": "Tue Jun 10 07:02:51 2025 +0000",
-    "author": "GitHub Action"
+    "commit": "2888b13c9f3ce2d8fa93d9d188795c430314d41a",
+    "date": "Tue Jun 10 15:39:07 2025 +0800",
+    "author": "keylen"
   },
   "pods": [
     {
       "file": "education_platform_pod.md",
       "title": "LXDAO Web3教育平台",
-      "content": "# LXDAO Web3教育平台\n\n## 1. 基础信息\n- 项目名称：LXDAO Web3教育平台\n- 负责人：@carol\n- 关联主线：教育发展\n\n## 2. 项目描述\n\n### What\n- 开发一个面向Web3开发者的在线教育平台，提供课程内容和实践环境\n\n### Why\n- Web3开发人才缺口大\n- 现有教育资源分散且质量参差不齐\n- 缺乏实践导向的学习平台\n\n### How\n- 开发课程管理系统\n- 集成在线编程环境\n- 建立社区互动机制\n- 提供项目实践机会\n\n## 3. 资金申请\n- 联系方式：@carol\n- 申请金额：1000 USDT\n- 资金用途说明：\n  - 平台开发：400 USDT\n  - 课程内容制作：300 USDT\n  - 服务器和基础设施：200 USDT\n  - 运营推广：100 USDT\n\n## 4. Milestone 计划\n| 时间节点 | 阶段目标 | 解锁资金(USDT) |\n|---------|---------|--------------|\n| 2024-04-26 | 完成平台基础架构开发 | 400 |\n| 2024-05-03 | 完成首批课程内容制作 | 300 |\n| 2024-05-10 | 完成测试和上线准备 | 300 |\n\n## 5. 项目支持\n- 技术支持：需要内容创作者\n- 测试协助：需要学习者参与测试\n- 文档与运营：需要编写教程和运营方案\n\n## 6. 补充说明\n- 平台将采用免费+付费模式\n- 计划与多个Web3项目合作\n- 将建立导师制度 ",
+      "content": "# LXDAO Web3教育平台\n\n## 1. 基础信息\n- 项目名称：LXDAO Web3教育平台\n- 负责人：@carol\n- 关联主线：教育发展\n\n## 2. 项目描述\n\n### What\n- 开发一个面向Web3开发者的在线教育平台，提供课程内容和实践环境\n\n### Why\n- Web3开发人才缺口大\n- 现有教育资源分散且质量参差不齐\n- 缺乏实践导向的学习平台\n\n### How\n- 开发课程管理系统\n- 集成在线编程环境\n- 建立社区互动机制\n- 提供项目实践机会\n\n## 3. 资金申请\n- 联系方式：@carol\n- 申请金额：1000 USDT\n- 资金用途说明：\n  - 平台开发：400 USDT\n  - 课程内容制作：300 USDT\n  - 服务器和基础设施：200 USDT\n  - 运营推广：100 USDT\n\n## 4. Milestone 计划\n| 时间节点 | 阶段目标 | 解锁资金(USDT) |\n|---------|---------|--------------|\n| 2024-04-26 | 完成平台基础架构开发 | 400 |\n| 2024-05-03 | 完成首批课程内容制作 | 300 |\n| 2024-05-10 | 完成测试和上线准备 | 300 |\n\n## 5. 项目支持\n- 技术支持：需要内容创作者\n- 测试协助：需要学习者参与测试\n- 文档与运营：需要编写教程和运营方案\n\n## 6. 补充说明\n- 平台将采用免费+付费模式\n- 计划与多个Web3项目合作\n- 将建立导师制度 \n\n## 7. Dwv WG\n> 此部分由 Dev WG 管理员填写，用户请勿修改\n\n- 项目状态：进行中\n- 当前 Milestone 进度：完成第一个里程碑，正在进行第二个里程碑的开发\n- 国库多签地址：0x1234567890abcdef1234567890abcdef12345678\n- Notion文档：https://lxdao.notion.site/education-platform\n- FairSharing：已完成 30% 的 FairSharing 分配\n- 备注：项目进展顺利，团队配合良好 ",
       "basic_info": {
         "project_name": "LXDAO Web3教育平台",
         "owner": "@carol",
@@ -40,12 +40,20 @@
       "timeline": {
         "start_date": "2024-04-26",
         "end_date": "2024-05-10"
+      },
+      "dev_wg": {
+        "status": "进行中",
+        "current_milestone": "完成第一个里程碑，正在进行第二个里程碑的开发",
+        "treasury_address": "0x1234567890abcdef1234567890abcdef12345678",
+        "notion_doc": "https://lxdao.notion.site/education-platform",
+        "fair_sharing": "已完成 30% 的 FairSharing 分配",
+        "notes": "项目进展顺利，团队配合良好"
       }
     },
     {
       "file": "community_governance_pod.md",
       "title": "LXDAO社区治理优化",
-      "content": "# LXDAO社区治理优化\n\n## 1. 基础信息\n- 项目名称：LXDAO社区治理优化\n- 负责人：@bob\n- 关联主线：社区治理\n\n## 2. 项目描述\n\n### What\n- 开发一个去中心化的社区治理平台，用于LXDAO的提案投票和决策管理\n\n### Why\n- 当前社区决策过程不够透明\n- 缺乏有效的投票机制\n- 需要建立更完善的治理体系\n\n### How\n- 基于智能合约开发投票系统\n- 实现提案创建、讨论、投票等功能\n- 集成链上身份验证\n- 建立完整的治理文档体系\n\n## 3. 资金申请\n- 联系方式：@bob\n- 申请金额：800 USDT\n- 资金用途说明：\n  - 智能合约开发：400 USDT\n  - 前端界面开发：200 USDT\n  - 安全审计：100 USDT\n  - 文档编写：100 USDT\n\n## 4. Milestone 计划\n| 时间节点 | 阶段目标 | 解锁资金(USDT) |\n|---------|---------|--------------|\n| 2024-04-26 | 完成智能合约开发和安全审计 | 500 |\n| 2024-05-03 | 完成前端开发和集成测试 | 200 |\n| 2024-05-10 | 完成文档编写和系统部署 | 100 |\n\n## 5. 项目支持\n- 技术支持：需要智能合约审计\n- 测试协助：需要社区成员参与测试\n- 文档与运营：需要编写治理指南\n\n## 6. 补充说明\n- 项目将采用开源协议\n- 计划后续支持更多链的集成 ",
+      "content": "# LXDAO社区治理优化\n\n## 1. 基础信息\n- 项目名称：LXDAO社区治理优化\n- 负责人：@bob\n- 关联主线：社区治理\n\n## 2. 项目描述\n\n### What\n- 开发一个去中心化的社区治理平台，用于LXDAO的提案投票和决策管理\n\n### Why\n- 当前社区决策过程不够透明\n- 缺乏有效的投票机制\n- 需要建立更完善的治理体系\n\n### How\n- 基于智能合约开发投票系统\n- 实现提案创建、讨论、投票等功能\n- 集成链上身份验证\n- 建立完整的治理文档体系\n\n## 3. 资金申请\n- 联系方式：@bob\n- 申请金额：800 USDT\n- 资金用途说明：\n  - 智能合约开发：400 USDT\n  - 前端界面开发：200 USDT\n  - 安全审计：100 USDT\n  - 文档编写：100 USDT\n\n## 4. Milestone 计划\n| 时间节点 | 阶段目标 | 解锁资金(USDT) |\n|---------|---------|--------------|\n| 2024-04-26 | 完成智能合约开发和安全审计 | 500 |\n| 2024-05-03 | 完成前端开发和集成测试 | 200 |\n| 2024-05-10 | 完成文档编写和系统部署 | 100 |\n\n## 5. 项目支持\n- 技术支持：需要智能合约审计\n- 测试协助：需要社区成员参与测试\n- 文档与运营：需要编写治理指南\n\n## 6. 补充说明\n- 项目将采用开源协议\n- 计划后续支持更多链的集成\n\n## 7. Dwv WG\n> 此部分由 Dev WG 管理员填写，用户请勿修改\n\n- 项目状态：已延期\n- 当前 Milestone 进度：第一个里程碑延期两周，正在加紧追赶进度\n- 国库多签地址：0xabcdef1234567890abcdef1234567890abcdef12\n- Notion文档：https://lxdao.notion.site/community-governance\n- FairSharing：已完成 20% 的 FairSharing 分配\n- 备注：由于技术方案调整导致延期，已制定追赶计划 ",
       "basic_info": {
         "project_name": "LXDAO社区治理优化",
         "owner": "@bob",
@@ -76,12 +84,20 @@
       "timeline": {
         "start_date": "2024-04-26",
         "end_date": "2024-05-10"
+      },
+      "dev_wg": {
+        "status": "已延期",
+        "current_milestone": "第一个里程碑延期两周，正在加紧追赶进度",
+        "treasury_address": "0xabcdef1234567890abcdef1234567890abcdef12",
+        "notion_doc": "https://lxdao.notion.site/community-governance",
+        "fair_sharing": "已完成 20% 的 FairSharing 分配",
+        "notes": "由于技术方案调整导致延期，已制定追赶计划"
       }
     },
     {
       "file": "ai_assistant_pod.md",
       "title": "LXDAO AI助手开发",
-      "content": "# LXDAO AI助手开发\n\n## 1. 基础信息\n- 项目名称：LXDAO AI助手开发\n- 负责人：@alice\n- 关联主线：AI基础设施\n\n## 2. 项目描述\n\n### What\n- 开发一个基于大语言模型的AI助手，用于帮助LXDAO社区成员更好地协作和沟通\n\n### Why\n- 当前社区成员之间的沟通效率有待提高\n- 现有工具缺乏智能化的协作功能\n- 需要一个统一的AI助手来提升社区运营效率\n\n### How\n- 使用OpenAI API构建基础模型\n- 集成Discord和Telegram接口\n- 实现基础的问答、任务提醒、会议记录等功能\n- 预期能够提升30%的社区协作效率\n\n## 3. 资金申请\n- 联系方式：@alice\n- 申请金额：500 USDT\n- 资金用途说明：\n  - API调用费用：200 USDT\n  - 服务器部署：200 USDT\n  - 测试和优化：100 USDT\n\n## 4. Milestone 计划\n| 时间节点 | 阶段目标 | 解锁资金(USDT) |\n|---------|---------|--------------|\n| 2024-04-26 | 完成基础架构搭建和API集成 | 200 |\n| 2024-05-03 | 实现核心功能并完成测试 | 200 |\n| 2024-05-10 | 部署上线并进行优化 | 100 |\n\n## 5. 项目支持\n- 技术支持：需要前端开发协助\n- 测试协助：需要社区成员参与测试\n- 文档与运营：需要编写使用文档和推广方案\n\n## 6. 补充说明\n- 项目完成后将开源代码\n- 计划后续添加更多高级功能 ",
+      "content": "# LXDAO AI助手开发\n\n## 1. 基础信息\n- 项目名称：LXDAO AI助手开发\n- 负责人：@alice\n- 关联主线：AI基础设施\n\n## 2. 项目描述\n\n### What\n- 开发一个基于大语言模型的AI助手，用于帮助LXDAO社区成员更好地协作和沟通\n\n### Why\n- 当前社区成员之间的沟通效率有待提高\n- 现有工具缺乏智能化的协作功能\n- 需要一个统一的AI助手来提升社区运营效率\n\n### How\n- 使用OpenAI API构建基础模型\n- 集成Discord和Telegram接口\n- 实现基础的问答、任务提醒、会议记录等功能\n- 预期能够提升30%的社区协作效率\n\n## 3. 资金申请\n- 联系方式：@alice\n- 申请金额：500 USDT\n- 资金用途说明：\n  - API调用费用：200 USDT\n  - 服务器部署：200 USDT\n  - 测试和优化：100 USDT\n\n## 4. Milestone 计划\n| 时间节点 | 阶段目标 | 解锁资金(USDT) |\n|---------|---------|--------------|\n| 2024-04-26 | 完成基础架构搭建和API集成 | 200 |\n| 2024-05-03 | 实现核心功能并完成测试 | 200 |\n| 2024-05-10 | 部署上线并进行优化 | 100 |\n\n## 5. 项目支持\n- 技术支持：需要前端开发协助\n- 测试协助：需要社区成员参与测试\n- 文档与运营：需要编写使用文档和推广方案\n\n## 6. 补充说明\n- 项目完成后将开源代码\n- 计划后续添加更多高级功能 \n\n## 7. Dwv WG\n> 此部分由 Dev WG 管理员填写，用户请勿修改\n\n- 项目状态：已延期\n- 当前 Milestone 进度：第一个里程碑延期两周，正在加紧追赶进度\n- 国库多签地址：0xabcdef1234567890abcdef1234567890abcdef12\n- Notion文档：https://lxdao.notion.site/community-governance\n- FairSharing：已完成 20% 的 FairSharing 分配\n- 备注：由于技术方案调整导致延期，已制定追赶计划 ",
       "basic_info": {
         "project_name": "LXDAO AI助手开发",
         "owner": "@alice",
@@ -112,12 +128,20 @@
       "timeline": {
         "start_date": "2024-04-26",
         "end_date": "2024-05-10"
+      },
+      "dev_wg": {
+        "status": "已延期",
+        "current_milestone": "第一个里程碑延期两周，正在加紧追赶进度",
+        "treasury_address": "0xabcdef1234567890abcdef1234567890abcdef12",
+        "notion_doc": "https://lxdao.notion.site/community-governance",
+        "fair_sharing": "已完成 20% 的 FairSharing 分配",
+        "notes": "由于技术方案调整导致延期，已制定追赶计划"
       }
     }
   ],
   "stats": {
     "total_pods": 3,
-    "last_updated": "2025-06-10T15:31:14.751723",
+    "last_updated": "2025-06-10T16:38:03.993537",
     "pod_list": [
       "education_platform_pod.md",
       "community_governance_pod.md",
@@ -129,9 +153,9 @@
       "LXDAO AI助手开发"
     ],
     "content_lengths": {
-      "education_platform_pod.md": 676,
-      "community_governance_pod.md": 665,
-      "ai_assistant_pod.md": 712
+      "education_platform_pod.md": 937,
+      "community_governance_pod.md": 931,
+      "ai_assistant_pod.md": 979
     },
     "total_funding": 2300,
     "milestone_stats": {
@@ -139,10 +163,10 @@
       "avg_milestone_amount": 255.55555555555554
     },
     "content_stats": {
-      "min_length": 665,
-      "max_length": 712,
-      "avg_length": 684.3333333333334
+      "min_length": 931,
+      "max_length": 979,
+      "avg_length": 949.0
     }
   },
-  "last_updated": "2025-06-10T15:31:14.751766"
+  "last_updated": "2025-06-10T16:38:03.993594"
 }

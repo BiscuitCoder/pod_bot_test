@@ -46,6 +46,14 @@ def parse_markdown_file(file_path):
         milestones = []
         start_date = None
         end_date = None
+        dev_wg_info = {
+            'status': '初审中',
+            'current_milestone': '',
+            'treasury_address': '',
+            'notion_doc': '',
+            'fair_sharing': '',
+            'notes': ''
+        }
         
         current_section = None
         for line in content.split('\n'):
@@ -103,6 +111,21 @@ def parse_markdown_file(file_path):
                             start_date = date
                         if not end_date or date > end_date:
                             end_date = date
+
+            # 解析 Dev WG 信息
+            elif current_section == '7. Dwv WG':
+                if line.startswith('- 项目状态：'):
+                    dev_wg_info['status'] = line.split('：', 1)[1].strip()
+                elif line.startswith('- 当前 Milestone 进度：'):
+                    dev_wg_info['current_milestone'] = line.split('：', 1)[1].strip()
+                elif line.startswith('- 国库多签地址：'):
+                    dev_wg_info['treasury_address'] = line.split('：', 1)[1].strip()
+                elif line.startswith('- Notion文档：'):
+                    dev_wg_info['notion_doc'] = line.split('：', 1)[1].strip()
+                elif line.startswith('- FairSharing：'):
+                    dev_wg_info['fair_sharing'] = line.split('：', 1)[1].strip()
+                elif line.startswith('- 备注：'):
+                    dev_wg_info['notes'] = line.split('：', 1)[1].strip()
                 
         return {
             'title': title,
@@ -113,7 +136,8 @@ def parse_markdown_file(file_path):
             'timeline': {
                 'start_date': start_date,
                 'end_date': end_date
-            }
+            },
+            'dev_wg': dev_wg_info
         }
     except Exception as e:
         print(f"Error parsing markdown file {file_path}: {e}")
@@ -140,7 +164,8 @@ def collect_pods_data():
                 'basic_info': file_data['basic_info'],
                 'funding': file_data['funding'],
                 'milestones': file_data['milestones'],
-                'timeline': file_data['timeline']
+                'timeline': file_data['timeline'],
+                'dev_wg': file_data['dev_wg']
             })
     
     return pods_data

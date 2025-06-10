@@ -44,3 +44,13 @@
 ## 6. 补充说明
 - 项目完成后将开源代码
 - 计划后续添加更多高级功能 
+
+## 7. Dwv WG
+> 此部分由 Dev WG 管理员填写，用户请勿修改
+
+- 项目状态：已延期
+- 当前 Milestone 进度：第一个里程碑延期两周，正在加紧追赶进度
+- 国库多签地址：0xabcdef1234567890abcdef1234567890abcdef12
+- Notion文档：https://lxdao.notion.site/community-governance
+- FairSharing：已完成 20% 的 FairSharing 分配
+- 备注：由于技术方案调整导致延期，已制定追赶计划 

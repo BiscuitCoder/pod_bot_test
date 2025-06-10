@@ -6,144 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LXDAO Pods 信息中心</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .stat-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: var(--card-background);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
         }
         
         .stat-title {
-            font-size: 16px;
-            color: #666;
-            margin: 0 0 10px 0;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin: 0;
+            font-weight: 500;
         }
         
         .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-        
-        .chart-container {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pod-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .pod-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pod-header {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .pod-title {
-            font-size: 20px;
-            color: #333;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            font-weight: 600;
             margin: 0;
         }
         
-        .pod-meta {
-            color: #666;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        
-        .pod-content {
-            color: #444;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-        
-        .milestone-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        
-        .milestone-table th,
-        .milestone-table td {
-            padding: 8px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        
-        .milestone-table th {
-            background-color: #f5f5f5;
-        }
-        
-        .search-bar {
-            margin-bottom: 20px;
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        
-        .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .filter-button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 4px;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        
-        .filter-button:hover {
-            background: #0056b3;
-        }
-        
-        .funding-info {
-            margin-top: 10px;
-            padding: 10px;
-            background: #f8f9fa;
-            border-radius: 4px;
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-card:last-child {
+                grid-column: span 2;
+            }
         }
     </style>
 </head>
@@ -151,18 +53,6 @@
 <body>
     <div class="container">
         <h1>LXDAO Pods 信息中心</h1>
-
-        <!-- 搜索栏 -->
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="搜索 pods..." id="searchInput">
-        </div>
-
-        <!-- 过滤按钮 -->
-        <div class="filter-bar">
-            <button class="filter-button" onclick="filterByDate('week')">最近一周</button>
-            <button class="filter-button" onclick="filterByDate('month')">最近一月</button>
-            <button class="filter-button" onclick="filterByDate('all')">全部</button>
-        </div>
 
         <!-- 统计卡片 -->
         <div class="dashboard">
@@ -184,14 +74,22 @@
             </div>
         </div>
 
+        <!-- Pods 列表 -->
+        <div class="pod-list" id="podList">
+            <!-- Pods 将通过 JavaScript 动态加载 -->
+        </div>
+
         <!-- 图表区域 -->
         <div class="chart-container">
             <canvas id="fundingChart"></canvas>
         </div>
 
-        <!-- Pods 列表 -->
-        <div class="pod-list" id="podList">
-            <!-- Pods 将通过 JavaScript 动态加载 -->
+        <!-- 里程碑时间线 -->
+        <div class="timeline-container">
+            <h2>里程碑日程表</h2>
+            <div class="timeline" id="milestoneTimeline">
+                <!-- 里程碑将通过 JavaScript 动态加载 -->
+            </div>
         </div>
     </div>
 
@@ -222,7 +120,13 @@
             document.getElementById('avgMilestoneAmount').textContent =
                 `${Math.round(podData.stats.milestone_stats.avg_milestone_amount)} USDT`;
             document.getElementById('lastUpdate').textContent =
-                new Date(podData.last_updated).toLocaleString();
+                new Date(podData.last_updated).toLocaleString('zh-CN', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
         }
 
         // 初始化资金分布图表
@@ -262,91 +166,97 @@
             // 过滤掉template.md
             const filteredPods = pods.filter(pod => pod.file !== 'template.md');
 
-            podList.innerHTML = filteredPods.map(pod => `
-                <div class="pod-card">
-                    <div class="pod-header">
-                        <h2 class="pod-title">${pod.basic_info.project_name}</h2>
-                        <div class="pod-meta">
-                            <div>负责人: ${pod.basic_info.owner}</div>
-                            <div>关联主线: ${pod.basic_info.related_line}</div>
-                            <div>项目周期: ${pod.timeline.start_date} 至 ${pod.timeline.end_date}</div>
+            podList.innerHTML = filteredPods.map(pod => {
+                const now = new Date();
+                const startDate = new Date(pod.timeline.start_date);
+                const endDate = new Date(pod.timeline.end_date);
+
+                let status = pod.dev_wg.status;
+                let statusClass = '';
+
+                switch (status) {
+                    case '初审中':
+                        statusClass = 'status-pending';
+                        break;
+                    case '进行中':
+                        statusClass = 'status-ongoing';
+                        break;
+                    case '已完成':
+                        statusClass = 'status-completed';
+                        break;
+                    case '已延期':
+                        statusClass = 'status-delayed';
+                        break;
+                    case '停滞中':
+                        statusClass = 'status-stalled';
+                        break;
+                    case '已驳回':
+                        statusClass = 'status-rejected';
+                        break;
+                    default:
+                        statusClass = 'status-pending';
+                }
+
+                return `
+                    <div class="pod-card ${statusClass}" onclick="window.location.href='pod-detail.html?name=${encodeURIComponent(pod.basic_info.project_name)}'" style="cursor: pointer;">
+                        <div class="pod-header">
+                            <div class="pod-title-row">
+                                <h2 class="pod-title">${pod.basic_info.project_name}</h2>
+                                <span class="pod-status">${status}</span>
+                            </div>
+                            <div class="pod-meta">
+                                <div>负责人: ${pod.basic_info.owner}</div>
+                                <div>周期: ${pod.timeline.start_date} 至 ${pod.timeline.end_date}</div>
+                                <div>申请金额: ${pod.funding.amount} USDT</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="funding-info">
-                        <div>申请金额: ${pod.funding.amount} USDT</div>
-                        <div>联系方式: ${pod.funding.contact}</div>
-                        <div>资金用途: ${pod.funding.usage}</div>
-                    </div>
-                    <table class="milestone-table">
-                        <thead>
-                            <tr>
-                                <th>时间节点</th>
-                                <th>阶段目标</th>
-                                <th>解锁资金(USDT)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${pod.milestones.map(m => `
-                                <tr>
-                                    <td>${m.date}</td>
-                                    <td>${m.goal}</td>
-                                    <td>${m.amount}</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // 搜索功能
-        document.getElementById('searchInput').addEventListener('input', (e) => {
+        // 渲染里程碑时间线
+        function renderMilestoneTimeline() {
             if (!podData) return;
 
-            const searchTerm = e.target.value.toLowerCase();
-            const filteredPods = podData.pods.filter(pod =>
-                pod.file !== 'template.md' && (
-                    pod.basic_info.project_name.toLowerCase().includes(searchTerm) ||
-                    pod.basic_info.owner.toLowerCase().includes(searchTerm) ||
-                    pod.basic_info.related_line.toLowerCase().includes(searchTerm)
-                )
-            );
-            renderPodList(filteredPods);
-        });
+            const timeline = document.getElementById('milestoneTimeline');
+            const allMilestones = [];
 
-        // 时间过滤
-        function filterByDate(period) {
-            if (!podData) return;
+            // 收集所有里程碑
+            podData.pods.forEach(pod => {
+                if (pod.file === 'template.md') return;
 
-            const now = new Date();
-            let filteredPods;
+                pod.milestones.forEach(milestone => {
+                    allMilestones.push({
+                        date: milestone.date,
+                        project: pod.basic_info.project_name,
+                        goal: milestone.goal,
+                        amount: milestone.amount
+                    });
+                });
+            });
 
-            switch (period) {
-                case 'week':
-                    const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
-                    filteredPods = podData.pods.filter(pod =>
-                        pod.file !== 'template.md' &&
-                        pod.milestones.some(m => new Date(m.date) >= weekAgo)
-                    );
-                    break;
-                case 'month':
-                    const monthAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
-                    filteredPods = podData.pods.filter(pod =>
-                        pod.file !== 'template.md' &&
-                        pod.milestones.some(m => new Date(m.date) >= monthAgo)
-                    );
-                    break;
-                default:
-                    filteredPods = podData.pods.filter(pod => pod.file !== 'template.md');
-            }
+            // 按日期排序
+            allMilestones.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            renderPodList(filteredPods);
+            // 渲染时间线
+            timeline.innerHTML = allMilestones.map((milestone, index) => `
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">${milestone.date}</div>
+                        <div class="timeline-title">${milestone.goal}</div>
+                        <div class="timeline-project">${milestone.project}</div>
+                        <div class="timeline-amount">${milestone.amount} USDT</div>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // 更新整个界面
         function updateUI() {
             updateStats();
             initFundingChart();
+            renderMilestoneTimeline();
             renderPodList(podData.pods);
         }
 

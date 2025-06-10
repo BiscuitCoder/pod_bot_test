@@ -46,3 +46,15 @@
 
 ## 6. 补充说明（可选）
 - 其他需要补充的信息
+
+----
+
+## 7. Dwv WG
+> 此部分由 Dev WG 管理员填写，用户请勿修改
+
+- 项目状态：初审中 | 进行中 | 停滞中 | 已延期 | 已驳回 | 已完成
+- 当前 Milestone 进度：xxxx
+- 国库多签地址：xxxx
+- Notion文档：xxxx
+- FairSharing：xxxx
+- 备注：xxxx
