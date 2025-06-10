@@ -2,19 +2,27 @@
 
 ## 文件列表
 
-### pod3.md
+### ai_assistant_pod.md
+
+**标题**: LXDAO Pod 申请模板
 
 ---
 
-### testPod.md
+### template.md
+
+**标题**: LXDAO Pod 申请模板
 
 ---
 
-### pod2.md
+### education_platform_pod.md
+
+**标题**: LXDAO Pod 申请模板
 
 ---
 
-### test2.md
+### community_governance_pod.md
+
+**标题**: LXDAO Pod 申请模板
 
 ---
 
