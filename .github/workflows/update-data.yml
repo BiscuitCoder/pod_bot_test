@@ -1,0 +1,37 @@
+name: Update Pods Data
+
+on:
+  push:
+    paths:
+      - 'pods/**'
+  pull_request:
+    paths:
+      - 'pods/**'
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Update data.json
+        run: node scripts/utils.js
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add dist/data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update pods data" && git push) 

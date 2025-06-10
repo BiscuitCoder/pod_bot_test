@@ -159,6 +159,18 @@ function loadData() {
     return null;
 }
 
+// 如果直接运行此文件，则执行数据收集
+if (require.main === module) {
+    try {
+        console.log('开始收集 Pods 数据...');
+        collectPodsData();
+        console.log('数据收集完成！');
+    } catch (error) {
+        console.error('数据收集失败:', error);
+        process.exit(1);
+    }
+}
+
 module.exports = {
     collectPodsData,
     getGitInfo,
