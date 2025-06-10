@@ -153,25 +153,22 @@
                 <div class="stat-value" id="totalPods">0</div>
             </div>
             <div class="stat-card">
-                <h3 class="stat-title">本月新增</h3>
-                <div class="stat-value" id="newPods">0</div>
+                <h3 class="stat-title">内容统计</h3>
+                <div class="stat-value" id="contentStats">-</div>
             </div>
             <div class="stat-card">
-                <h3 class="stat-title">最近更新</h3>
+                <h3 class="stat-title">最后更新</h3>
                 <div class="stat-value" id="lastUpdate">-</div>
             </div>
             <div class="stat-card">
-                <h3 class="stat-title">平均更新频率</h3>
-                <div class="stat-value" id="updateFrequency">-</div>
+                <h3 class="stat-title">Git 信息</h3>
+                <div class="stat-value" id="gitInfo">-</div>
             </div>
         </div>
 
         <!-- 图表区域 -->
         <div class="chart-container">
-            <canvas id="updateChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="categoryChart"></canvas>
+            <canvas id="contentChart"></canvas>
         </div>
 
         <!-- Pods 列表 -->
@@ -181,86 +178,64 @@
     </div>
 
     <script>
-        // 模拟数据 - 实际使用时需要从后端获取
-        const podData = {
-            pods: [],
-            stats: {
-                total: 0,
-                newThisMonth: 0,
-                lastUpdate: '',
-                updateFrequency: ''
-            },
-            charts: {
-                updates: {
-                    labels: [],
-                    data: []
-                },
-                categories: {
-                    labels: [],
-                    data: []
-                }
+        let podData = null;
+
+        // 加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('data.json');
+                podData = await response.json();
+                updateUI();
+            } catch (error) {
+                console.error('加载数据失败:', error);
             }
-        };
-
-        // 初始化图表
-        function initCharts() {
-            // 更新趋势图
-            new Chart(document.getElementById('updateChart'), {
-                type: 'line',
-                data: {
-                    labels: podData.charts.updates.labels,
-                    datasets: [{
-                        label: '更新频率',
-                        data: podData.charts.updates.data,
-                        borderColor: '#007bff',
-                        tension: 0.1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Pods 更新趋势'
-                        }
-                    }
-                }
-            });
-
-            // 分类统计图
-            new Chart(document.getElementById('categoryChart'), {
-                type: 'pie',
-                data: {
-                    labels: podData.charts.categories.labels,
-                    datasets: [{
-                        data: podData.charts.categories.data,
-                        backgroundColor: [
-                            '#007bff',
-                            '#28a745',
-                            '#ffc107',
-                            '#dc3545',
-                            '#17a2b8'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Pods 分类统计'
-                        }
-                    }
-                }
-            });
         }
 
         // 更新统计信息
         function updateStats() {
-            document.getElementById('totalPods').textContent = podData.stats.total;
-            document.getElementById('newPods').textContent = podData.stats.newThisMonth;
-            document.getElementById('lastUpdate').textContent = podData.stats.lastUpdate;
-            document.getElementById('updateFrequency').textContent = podData.stats.updateFrequency;
+            if (!podData) return;
+
+            document.getElementById('totalPods').textContent = podData.stats.total_pods;
+
+            const contentStats = podData.stats.content_stats;
+            document.getElementById('contentStats').textContent =
+                `平均: ${Math.round(contentStats.avg_length)} 字符`;
+
+            document.getElementById('lastUpdate').textContent =
+                new Date(podData.last_updated).toLocaleString();
+
+            document.getElementById('gitInfo').textContent =
+                `${podData.git.branch} - ${podData.git.commit.slice(0, 7)}`;
+        }
+
+        // 初始化内容长度图表
+        function initContentChart() {
+            if (!podData) return;
+
+            const contentLengths = podData.stats.content_lengths;
+            const labels = Object.keys(contentLengths);
+            const data = Object.values(contentLengths);
+
+            new Chart(document.getElementById('contentChart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '内容长度',
+                        data: data,
+                        backgroundColor: '#007bff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Pods 内容长度分布'
+                        }
+                    }
+                }
+            });
         }
 
         // 渲染 Pods 列表
@@ -269,13 +244,10 @@
             podList.innerHTML = pods.map(pod => `
                 <div class="pod-card">
                     <div class="pod-header">
-                        <h2 class="pod-title">${pod.title}</h2>
+                        <h2 class="pod-title">${pod.title || '无标题'}</h2>
                         <div class="pod-meta">
-                            <div>文件名: ${pod.filename}</div>
-                            <div>最后修改: ${pod.modified_time}</div>
-                            <div class="commit-info">
-                                提交信息: ${pod.commit_message || '无'}
-                            </div>
+                            <div>文件名: ${pod.file}</div>
+                            <div>内容长度: ${pod.content.length} 字符</div>
                         </div>
                     </div>
                     <div class="pod-content">
@@ -287,9 +259,11 @@
 
         // 搜索功能
         document.getElementById('searchInput').addEventListener('input', (e) => {
+            if (!podData) return;
+
             const searchTerm = e.target.value.toLowerCase();
             const filteredPods = podData.pods.filter(pod =>
-                pod.title.toLowerCase().includes(searchTerm) ||
+                (pod.title && pod.title.toLowerCase().includes(searchTerm)) ||
                 pod.content.toLowerCase().includes(searchTerm)
             );
             renderPodList(filteredPods);
@@ -297,6 +271,8 @@
 
         // 时间过滤
         function filterByDate(period) {
+            if (!podData) return;
+
             const now = new Date();
             let filteredPods;
 
@@ -304,13 +280,13 @@
                 case 'week':
                     const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
                     filteredPods = podData.pods.filter(pod =>
-                        new Date(pod.modified_time) >= weekAgo
+                        new Date(podData.last_updated) >= weekAgo
                     );
                     break;
                 case 'month':
                     const monthAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
                     filteredPods = podData.pods.filter(pod =>
-                        new Date(pod.modified_time) >= monthAgo
+                        new Date(podData.last_updated) >= monthAgo
                     );
                     break;
                 default:
@@ -320,27 +296,15 @@
             renderPodList(filteredPods);
         }
 
-        // 初始化页面
-        async function initPage() {
-            try {
-                // 这里需要替换为实际的 API 调用
-                const response = await fetch('/api/pods');
-                const data = await response.json();
-
-                // 更新数据
-                Object.assign(podData, data);
-
-                // 更新界面
-                updateStats();
-                initCharts();
-                renderPodList(podData.pods);
-            } catch (error) {
-                console.error('加载数据失败:', error);
-            }
+        // 更新整个界面
+        function updateUI() {
+            updateStats();
+            initContentChart();
+            renderPodList(podData.pods);
         }
 
         // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', initPage);
+        document.addEventListener('DOMContentLoaded', loadData);
     </script>
 </body>
 
