@@ -1,0 +1,53 @@
+{
+  "git": {
+    "branch": "master",
+    "commit": "bf5b71ac2ff49a94a8093e6e9dfe48d59e0b13b7",
+    "date": "Tue Jun 10 11:37:38 2025 +0800",
+    "author": "keylen"
+  },
+  "pods": [
+    {
+      "file": "pod3.md",
+      "title": null,
+      "content": "<!--  -->\n## title\n\npod3 title"
+    },
+    {
+      "file": "testPod.md",
+      "title": null,
+      "content": "<!--  -->\n## title\n\nthis my pod name"
+    },
+    {
+      "file": "pod2.md",
+      "title": null,
+      "content": "<!--  -->\n## title\n\npod2 test test2222222111111hah"
+    },
+    {
+      "file": "test2.md",
+      "title": null,
+      "content": "<!--  -->\n## title\n\ntest2222"
+    }
+  ],
+  "stats": {
+    "total_pods": 4,
+    "last_updated": "2025-06-10T03:37:54.062620",
+    "pod_list": [
+      "pod3.md",
+      "testPod.md",
+      "pod2.md",
+      "test2.md"
+    ],
+    "titles": [],
+    "content_lengths": {
+      "pod3.md": 30,
+      "testPod.md": 36,
+      "pod2.md": 50,
+      "test2.md": 28
+    },
+    "content_stats": {
+      "min_length": 28,
+      "max_length": 50,
+      "avg_length": 36.0
+    }
+  },
+  "last_updated": "2025-06-10T03:37:54.062633"
+}
