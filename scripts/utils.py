@@ -93,8 +93,8 @@ def calculate_statistics(pods_data):
 def save_data(data):
     """保存数据到 data.json"""
     try:
-        os.makedirs('dist', exist_ok=True)
-        with open('dist/data.json', 'w', encoding='utf-8') as f:
+        os.makedirs('docs', exist_ok=True)
+        with open('docs/data.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         return True
     except Exception as e:
@@ -104,7 +104,7 @@ def save_data(data):
 def load_data():
     """从 data.json 加载数据"""
     try:
-        with open('dist/data.json', 'r', encoding='utf-8') as f:
+        with open('docs/data.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
         print(f"Error loading data: {e}")
