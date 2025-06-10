@@ -15,19 +15,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: '18'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm install
+          python-version: '3.x'
 
       - name: Update README and HTML
         run: |
-          npm run update-readme
-          npm run update-html
+          python scripts/update_readme.py
+          python scripts/update_html.py
 
       - name: Commit and push if changed
         run: |
