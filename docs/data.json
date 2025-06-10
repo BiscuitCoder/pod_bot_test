@@ -1,53 +1,50 @@
 {
-  "git": {
-    "branch": "master",
-    "commit": "fd6c187dbe1ed8294b19404ca33fe326592dfeea",
-    "date": "Tue Jun 10 11:43:28 2025 +0800",
-    "author": "keylen"
-  },
-  "pods": [
-    {
-      "file": "pod3.md",
-      "title": null,
-      "content": "<!--  -->\n## title\n\npod3 title"
+    "git": {
+        "branch": "master",
+        "commit": "fd6c187dbe1ed8294b19404ca33fe326592dfeea",
+        "date": "Tue Jun 10 11:43:28 2025 +0800",
+        "author": "keylen"
     },
-    {
-      "file": "testPod.md",
-      "title": null,
-      "content": "<!--  -->\n## title\n\nthis my pod name"
+    "pods": [{
+        "file": "ai_assistant_pod.md",
+        "title": "LXDAO AI助手开发",
+        "content": "<!--  -->\n## 1. 基础信息\n- 项目名称：LXDAO AI助手开发\n- 负责人：@alice\n- 关联主线：AI基础设施",
+        "basic_info": {
+            "project_name": "LXDAO AI助手开发",
+            "owner": "@alice",
+            "related_line": "AI基础设施"
+        },
+        "funding": {
+            "contact": "@alice",
+            "amount": 500,
+            "usage": "API调用费用：200 USDT\n服务器部署：200 USDT\n测试和优化：100 USDT"
+        },
+        "milestones": [{
+                "date": "2024-04-26",
+                "goal": "完成基础架构搭建和API集成",
+                "amount": 200
+            },
+            {
+                "date": "2024-05-03",
+                "goal": "实现核心功能并完成测试",
+                "amount": 200
+            },
+            {
+                "date": "2024-05-10",
+                "goal": "部署上线并进行优化",
+                "amount": 100
+            }
+        ]
+    }],
+    "stats": {
+        "total_pods": 1,
+        "last_updated": "2025-06-10T03:43:39.901935",
+        "pod_list": ["ai_assistant_pod.md"],
+        "total_funding": 500,
+        "milestone_stats": {
+            "total_milestones": 3,
+            "avg_milestone_amount": 166.67
+        }
     },
-    {
-      "file": "test2.md",
-      "title": null,
-      "content": "<!--  -->\n## title\n\ntest2222"
-    },
-    {
-      "file": "pod2.md",
-      "title": null,
-      "content": "<!--  -->\n## title\n\npod2 test test2222222111111hah222"
-    }
-  ],
-  "stats": {
-    "total_pods": 4,
-    "last_updated": "2025-06-10T03:43:39.901935",
-    "pod_list": [
-      "pod3.md",
-      "testPod.md",
-      "test2.md",
-      "pod2.md"
-    ],
-    "titles": [],
-    "content_lengths": {
-      "pod3.md": 30,
-      "testPod.md": 36,
-      "test2.md": 28,
-      "pod2.md": 53
-    },
-    "content_stats": {
-      "min_length": 28,
-      "max_length": 53,
-      "avg_length": 36.75
-    }
-  },
-  "last_updated": "2025-06-10T03:43:39.901948"
+    "last_updated": "2025-06-10T03:43:39.901948"
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pods 信息中心</title>
+    <title>LXDAO Pods 信息中心</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
@@ -91,6 +91,23 @@
             overflow-y: auto;
         }
         
+        .milestone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .milestone-table th,
+        .milestone-table td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .milestone-table th {
+            background-color: #f5f5f5;
+        }
+        
         .search-bar {
             margin-bottom: 20px;
         }
@@ -122,17 +139,18 @@
             background: #0056b3;
         }
         
-        .commit-info {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
+        .funding-info {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Pods 信息中心(Beta)</h1>
+        <h1>LXDAO Pods 信息中心</h1>
 
         <!-- 搜索栏 -->
         <div class="search-bar">
@@ -153,22 +171,22 @@
                 <div class="stat-value" id="totalPods">0</div>
             </div>
             <div class="stat-card">
-                <h3 class="stat-title">内容统计</h3>
-                <div class="stat-value" id="contentStats">-</div>
+                <h3 class="stat-title">总申请资金</h3>
+                <div class="stat-value" id="totalFunding">0 USDT</div>
+            </div>
+            <div class="stat-card">
+                <h3 class="stat-title">平均里程碑金额</h3>
+                <div class="stat-value" id="avgMilestoneAmount">0 USDT</div>
             </div>
             <div class="stat-card">
                 <h3 class="stat-title">最后更新</h3>
                 <div class="stat-value" id="lastUpdate">-</div>
             </div>
-            <div class="stat-card">
-                <h3 class="stat-title">Git 信息</h3>
-                <div class="stat-value" id="gitInfo">-</div>
-            </div>
         </div>
 
         <!-- 图表区域 -->
         <div class="chart-container">
-            <canvas id="contentChart"></canvas>
+            <canvas id="fundingChart"></canvas>
         </div>
 
         <!-- Pods 列表 -->
@@ -196,32 +214,27 @@
             if (!podData) return;
 
             document.getElementById('totalPods').textContent = podData.stats.total_pods;
-
-            const contentStats = podData.stats.content_stats;
-            document.getElementById('contentStats').textContent =
-                `平均: ${Math.round(contentStats.avg_length)} 字符`;
-
+            document.getElementById('totalFunding').textContent = `${podData.stats.total_funding} USDT`;
+            document.getElementById('avgMilestoneAmount').textContent =
+                `${Math.round(podData.stats.milestone_stats.avg_milestone_amount)} USDT`;
             document.getElementById('lastUpdate').textContent =
                 new Date(podData.last_updated).toLocaleString();
-
-            document.getElementById('gitInfo').textContent =
-                `${podData.git.branch} - ${podData.git.commit.slice(0, 7)}`;
         }
 
-        // 初始化内容长度图表
-        function initContentChart() {
+        // 初始化资金分布图表
+        function initFundingChart() {
             if (!podData) return;
 
-            const contentLengths = podData.stats.content_lengths;
-            const labels = Object.keys(contentLengths);
-            const data = Object.values(contentLengths);
+            const pods = podData.pods;
+            const labels = pods.map(pod => pod.basic_info.project_name);
+            const data = pods.map(pod => pod.funding.amount);
 
-            new Chart(document.getElementById('contentChart'), {
+            new Chart(document.getElementById('fundingChart'), {
                 type: 'bar',
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: '内容长度',
+                        label: '申请资金 (USDT)',
                         data: data,
                         backgroundColor: '#007bff'
                     }]
@@ -231,7 +244,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Pods 内容长度分布'
+                            text: 'Pods 资金申请分布'
                         }
                     }
                 }
@@ -244,15 +257,35 @@
             podList.innerHTML = pods.map(pod => `
                 <div class="pod-card">
                     <div class="pod-header">
-                        <h2 class="pod-title">${pod.title || '无标题'}</h2>
+                        <h2 class="pod-title">${pod.basic_info.project_name}</h2>
                         <div class="pod-meta">
-                            <div>文件名: ${pod.file}</div>
-                            <div>内容长度: ${pod.content.length} 字符</div>
+                            <div>负责人: ${pod.basic_info.owner}</div>
+                            <div>关联主线: ${pod.basic_info.related_line}</div>
                         </div>
                     </div>
-                    <div class="pod-content">
-                        ${pod.content}
+                    <div class="funding-info">
+                        <div>申请金额: ${pod.funding.amount} USDT</div>
+                        <div>联系方式: ${pod.funding.contact}</div>
+                        <div>资金用途: ${pod.funding.usage}</div>
                     </div>
+                    <table class="milestone-table">
+                        <thead>
+                            <tr>
+                                <th>时间节点</th>
+                                <th>阶段目标</th>
+                                <th>解锁资金(USDT)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${pod.milestones.map(m => `
+                                <tr>
+                                    <td>${m.date}</td>
+                                    <td>${m.goal}</td>
+                                    <td>${m.amount}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
                 </div>
             `).join('');
         }
@@ -263,8 +296,9 @@
 
             const searchTerm = e.target.value.toLowerCase();
             const filteredPods = podData.pods.filter(pod =>
-                (pod.title && pod.title.toLowerCase().includes(searchTerm)) ||
-                pod.content.toLowerCase().includes(searchTerm)
+                pod.basic_info.project_name.toLowerCase().includes(searchTerm) ||
+                pod.basic_info.owner.toLowerCase().includes(searchTerm) ||
+                pod.basic_info.related_line.toLowerCase().includes(searchTerm)
             );
             renderPodList(filteredPods);
         });
@@ -280,13 +314,13 @@
                 case 'week':
                     const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
                     filteredPods = podData.pods.filter(pod =>
-                        new Date(podData.last_updated) >= weekAgo
+                        pod.milestones.some(m => new Date(m.date) >= weekAgo)
                     );
                     break;
                 case 'month':
                     const monthAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
                     filteredPods = podData.pods.filter(pod =>
-                        new Date(podData.last_updated) >= monthAgo
+                        pod.milestones.some(m => new Date(m.date) >= monthAgo)
                     );
                     break;
                 default:
@@ -299,7 +333,7 @@
         // 更新整个界面
         function updateUI() {
             updateStats();
-            initContentChart();
+            initFundingChart();
             renderPodList(podData.pods);
         }
 
