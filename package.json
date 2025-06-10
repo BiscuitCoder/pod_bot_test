@@ -1,0 +1,14 @@
+{
+    "name": "pod-bot",
+    "version": "1.0.0",
+    "description": "Pods 信息展示系统",
+    "main": "scripts/update.js",
+    "scripts": {
+        "update-readme": "node scripts/update-readme.js",
+        "update-html": "node scripts/update-html.js",
+        "update": "npm run update-readme && npm run update-html"
+    },
+    "dependencies": {
+        "marked": "^12.0.0"
+    }
+}
