@@ -1,15 +1,22 @@
 const fs = require('fs');
 const path = require('path');
-const { collectPodsData } = require('./utils');
+const { collectPodsData, loadData } = require('./utils');
 
 const INDEX_HTML = path.join(__dirname, '../dist/index.html');
 
 function updateIndexHtml() {
     try {
-        console.log('开始收集 Pods 数据...');
-        const data = collectPodsData();
+        console.log('开始更新 index.html...');
 
-        console.log('更新 index.html...');
+        // 尝试从 data.json 加载数据
+        let data = loadData();
+
+        // 如果没有数据或数据过期，重新收集数据
+        if (!data) {
+            console.log('未找到数据文件，开始收集数据...');
+            data = collectPodsData();
+        }
+
         let html = fs.readFileSync(INDEX_HTML, 'utf-8');
 
         // 更新统计数据

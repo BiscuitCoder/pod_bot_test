@@ -5,6 +5,7 @@ const marked = require('marked');
 
 // 配置
 const PODS_DIR = path.join(__dirname, '../pods');
+const DATA_JSON = path.join(__dirname, '../dist/data.json');
 
 // 获取 Git 信息
 function getGitInfo(filePath) {
@@ -114,15 +115,54 @@ function collectPodsData() {
         }
     };
 
-    return {
+    const data = {
         pods,
         stats,
-        charts
+        charts,
+        last_updated: new Date().toISOString()
     };
+
+    // 保存数据到 data.json
+    saveData(data);
+
+    return data;
+}
+
+// 保存数据到 data.json
+function saveData(data) {
+    try {
+        // 确保目录存在
+        const dir = path.dirname(DATA_JSON);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+
+        // 写入数据
+        fs.writeFileSync(DATA_JSON, JSON.stringify(data, null, 2));
+        console.log('数据已保存到 data.json');
+    } catch (error) {
+        console.error('保存数据失败:', error);
+        throw error;
+    }
+}
+
+// 从 data.json 读取数据
+function loadData() {
+    try {
+        if (fs.existsSync(DATA_JSON)) {
+            const data = JSON.parse(fs.readFileSync(DATA_JSON, 'utf-8'));
+            return data;
+        }
+    } catch (error) {
+        console.error('读取数据失败:', error);
+    }
+    return null;
 }
 
 module.exports = {
     collectPodsData,
     getGitInfo,
-    parseMarkdownFile
+    parseMarkdownFile,
+    saveData,
+    loadData
 };

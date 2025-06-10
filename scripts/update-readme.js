@@ -1,13 +1,21 @@
 const fs = require('fs');
 const path = require('path');
-const { collectPodsData } = require('./utils');
+const { collectPodsData, loadData } = require('./utils');
 
 const README_PATH = path.join(__dirname, '../README.md');
 
 function updateReadme() {
     try {
-        console.log('开始收集 Pods 数据...');
-        const data = collectPodsData();
+        console.log('开始更新 README.md...');
+
+        // 尝试从 data.json 加载数据
+        let data = loadData();
+
+        // 如果没有数据或数据过期，重新收集数据
+        if (!data) {
+            console.log('未找到数据文件，开始收集数据...');
+            data = collectPodsData();
+        }
 
         // 生成 README 内容
         let content = '# Pods 目录\n\n';
@@ -47,6 +55,9 @@ function updateReadme() {
         content += `- 本月新增: ${data.stats.newThisMonth}\n`;
         content += `- 最近更新: ${new Date(data.stats.lastUpdate).toLocaleString()}\n`;
         content += `- 平均更新频率: ${data.stats.updateFrequency}\n\n`;
+
+        // 添加最后更新时间
+        content += `最后更新时间: ${new Date(data.last_updated).toLocaleString()}\n`;
 
         // 写入文件
         fs.writeFileSync(README_PATH, content);
