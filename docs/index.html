@@ -213,7 +213,11 @@
         function updateStats() {
             if (!podData) return;
 
-            document.getElementById('totalPods').textContent = podData.stats.total_pods;
+            // 过滤掉template.md
+            const activePods = podData.pods.filter(pod => pod.file !== 'template.md');
+            const totalPods = activePods.length;
+
+            document.getElementById('totalPods').textContent = totalPods;
             document.getElementById('totalFunding').textContent = `${podData.stats.total_funding} USDT`;
             document.getElementById('avgMilestoneAmount').textContent =
                 `${Math.round(podData.stats.milestone_stats.avg_milestone_amount)} USDT`;
@@ -225,7 +229,8 @@
         function initFundingChart() {
             if (!podData) return;
 
-            const pods = podData.pods;
+            // 过滤掉template.md
+            const pods = podData.pods.filter(pod => pod.file !== 'template.md');
             const labels = pods.map(pod => pod.basic_info.project_name);
             const data = pods.map(pod => pod.funding.amount);
 
@@ -254,13 +259,17 @@
         // 渲染 Pods 列表
         function renderPodList(pods) {
             const podList = document.getElementById('podList');
-            podList.innerHTML = pods.map(pod => `
+            // 过滤掉template.md
+            const filteredPods = pods.filter(pod => pod.file !== 'template.md');
+
+            podList.innerHTML = filteredPods.map(pod => `
                 <div class="pod-card">
                     <div class="pod-header">
                         <h2 class="pod-title">${pod.basic_info.project_name}</h2>
                         <div class="pod-meta">
                             <div>负责人: ${pod.basic_info.owner}</div>
                             <div>关联主线: ${pod.basic_info.related_line}</div>
+                            <div>项目周期: ${pod.timeline.start_date} 至 ${pod.timeline.end_date}</div>
                         </div>
                     </div>
                     <div class="funding-info">
@@ -296,9 +305,11 @@
 
             const searchTerm = e.target.value.toLowerCase();
             const filteredPods = podData.pods.filter(pod =>
-                pod.basic_info.project_name.toLowerCase().includes(searchTerm) ||
-                pod.basic_info.owner.toLowerCase().includes(searchTerm) ||
-                pod.basic_info.related_line.toLowerCase().includes(searchTerm)
+                pod.file !== 'template.md' && (
+                    pod.basic_info.project_name.toLowerCase().includes(searchTerm) ||
+                    pod.basic_info.owner.toLowerCase().includes(searchTerm) ||
+                    pod.basic_info.related_line.toLowerCase().includes(searchTerm)
+                )
             );
             renderPodList(filteredPods);
         });
@@ -314,17 +325,19 @@
                 case 'week':
                     const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
                     filteredPods = podData.pods.filter(pod =>
+                        pod.file !== 'template.md' &&
                         pod.milestones.some(m => new Date(m.date) >= weekAgo)
                     );
                     break;
                 case 'month':
                     const monthAgo = new Date(now - 30 * 24 * 60 * 60 * 1000);
                     filteredPods = podData.pods.filter(pod =>
+                        pod.file !== 'template.md' &&
                         pod.milestones.some(m => new Date(m.date) >= monthAgo)
                     );
                     break;
                 default:
-                    filteredPods = podData.pods;
+                    filteredPods = podData.pods.filter(pod => pod.file !== 'template.md');
             }
 
             renderPodList(filteredPods);

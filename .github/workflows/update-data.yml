@@ -22,7 +22,7 @@ jobs:
           python-version: '3.x'
 
       - name: Update data.json
-        run: python scripts/utils.py
+        run: python scripts/update_data.py
 
       - name: Commit and push if changed
         run: |

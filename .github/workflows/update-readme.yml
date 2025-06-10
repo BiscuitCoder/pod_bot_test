@@ -1,4 +1,4 @@
-name: Update README with Pods
+name: Update data with Pods
 
 on:
   push:

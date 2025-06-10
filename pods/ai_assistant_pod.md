@@ -1,4 +1,4 @@
-# LXDAO Pod 申请模板
+# LXDAO AI助手开发
 
 ## 1. 基础信息
 - 项目名称：LXDAO AI助手开发
